@@ -1,0 +1,33 @@
+name: my-angular-app
+
+image:
+  repository: 192.168.1.239:8085/docker-hub/app
+  tag: 4d1054724e95f43ea7475da8460b23a13c2a487e
+  pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: nexus-registry-secret
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+ingress:
+  enabled: true
+  className: nginx
+  host: my-app.staging.local
+  path: /
+  pathType: Prefix
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+env: []

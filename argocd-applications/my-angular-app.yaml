@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-angular-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/khaoulahamza/devops-templates
+    targetRevision: main
+    path: helm-charts/app-generic
+    helm:
+      valueFiles:
+        - https://raw.githubusercontent.com/khaoulahamza/gitops-environments/main/environments/staging/my-angular-app/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: my-angular-app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
