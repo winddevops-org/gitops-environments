@@ -2,7 +2,7 @@ name: my-angular-app
 
 image:
   repository: 192.168.1.239:8085/docker-hub/app
-  tag: 4d1054724e95f43ea7475da8460b23a13c2a487e
+  tag: 137794c7baa56fc4ab26cd65bb8e6232bd92cc9e
   pullPolicy: IfNotPresent
 
 imagePullSecrets:
