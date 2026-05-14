@@ -1,10 +1,9 @@
 name: my-angular-app
 
 image:
-  repository: 192.168.1.239:8444/docker-hub/app   # ← Changement clé : port 8444 (HTTPS)
-  tag: 137794c7baa56fc4ab26cd65bb8e6232bd92cc9e
+  repository: 192.168.1.239:8085/selfkhaoula/app  # ← 8085 pas 8444, selfkhaoula pas docker-hub
+  tag: "latest"
   pullPolicy: IfNotPresent
-
 imagePullSecrets:
   - name: nexus-registry-secret
 
