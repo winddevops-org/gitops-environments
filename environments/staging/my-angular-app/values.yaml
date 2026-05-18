@@ -2,7 +2,7 @@ name: my-angular-app
 
 image:
   repository: 192.168.1.239:8085/selfkhaoula/app  # ← 8085 pas 8444, selfkhaoula pas docker-hub
-  tag: "latest"
+  tag: "3c75620e4984c7b0cc4709f322d8008d16cb5f11"
   pullPolicy: IfNotPresent
 imagePullSecrets:
   - name: nexus-registry-secret
