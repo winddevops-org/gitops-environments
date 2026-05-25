@@ -1,33 +1,42 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
+replicaCount: 1
 
-metadata:
-  name: malek-roukaya-internapp
-  namespace: argocd
+image:
+  repository: nginx
+  tag: latest
+  pullPolicy: IfNotPresent
 
-spec:
-  project: default
+service:
+  type: NodePort
+  port: 80
+  targetPort: 80
+  nodePort: 30080   # optionnel (sinon Kubernetes choisit automatiquement)
 
-  sources:
-    - repoURL: https://github.com/khaoulahamza/devops-templates
-      targetRevision: main
-      path: helm-charts/app-generic
-      helm:
-        valueFiles:
-          - $values/environments/staging/malek-roukaya-internapp/values.yaml
+ingress:
+  enabled: false
 
-    - repoURL: https://github.com/khaoulahamza/gitops-environments
-      targetRevision: main
-      ref: values
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: malek-roukaya-internapp
+env: []
 
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+autoscaling:
+  enabled: false
 
-    syncOptions:
-      - CreateNamespace=true
+livenessProbe:
+  httpGet:
+    path: /
+    port: 80
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 80
+  initialDelaySeconds: 5
+  periodSeconds: 5
