@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+
+metadata:
+  name: malek-roukaya-internapp
+  namespace: argocd
+
+spec:
+  project: default
+
+  sources:
+    - repoURL: https://github.com/khaoulahamza/devops-templates
+      targetRevision: main
+      path: helm-charts/app-generic
+      helm:
+        valueFiles:
+          - $values/environments/staging/malek-roukaya-internapp/values.yaml
+
+    - repoURL: https://github.com/khaoulahamza/gitops-environments
+      targetRevision: main
+      ref: values
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: malek-roukaya-internapp
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
