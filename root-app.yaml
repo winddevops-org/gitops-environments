@@ -9,7 +9,7 @@ spec:
         repoURL: https://github.com/khaoulahamza/gitops-environments
         revision: main
         directories:
-          - path: argocd-applications/*
+          - path: argocd-applications
   template:
     metadata:
       name: '{{path.basename}}'
