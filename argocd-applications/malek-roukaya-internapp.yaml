@@ -7,9 +7,9 @@ image:
 
 service:
   type: NodePort
+  # nodePort: 30080  # optionnel : vous pouvez fixer un port (30000-32767)
   port: 80
   targetPort: 80
-  nodePort: 30080   # optionnel (sinon Kubernetes choisit automatiquement)
 
 ingress:
   enabled: false
