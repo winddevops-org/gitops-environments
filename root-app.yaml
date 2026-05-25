@@ -1,24 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
+kind: Application
 metadata:
-  name: apps-set
+  name: root-app
   namespace: argocd
 spec:
-  generators:
-    - git:
-        repoURL: https://github.com/khaoulahamza/gitops-environments
-        revision: main
-        directories:
-          - path: argocd-applications
-  template:
-    metadata:
-      name: '{{path.basename}}'
-    spec:
-      project: default
-      source:
-        repoURL: https://github.com/khaoulahamza/gitops-environments
-        targetRevision: main
-        path: '{{path}}'
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: default
+  project: default
+  source:
+    repoURL: https://github.com/khaoulahamza/gitops-environments
+    targetRevision: main
+    path: argocd-applications
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
