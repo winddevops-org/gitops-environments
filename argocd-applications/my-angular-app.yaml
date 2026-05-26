@@ -1,20 +1,21 @@
+# argocd-applications/malek-roukaya-internapp.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: my-angular-app
+  name: malek-roukaya-internapp
   namespace: argocd
 spec:
-  project: default
+  project: stagiaires
   source:
     repoURL: https://github.com/khaoulahamza/devops-templates
     targetRevision: main
     path: helm-charts/app-generic
     helm:
       valueFiles:
-        - https://raw.githubusercontent.com/khaoulahamza/gitops-environments/main/environments/staging/my-angular-app/values.yaml
+        - https://raw.githubusercontent.com/khaoulahamza/gitops-environments/main/environments/staging/malek-roukaya-internapp/values.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: my-angular-app
+    namespace: staging-malek-roukaya-internapp
   syncPolicy:
     automated:
       prune: true
