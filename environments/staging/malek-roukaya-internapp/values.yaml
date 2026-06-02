@@ -4,7 +4,7 @@ replicaCount: 1
 
 image:
   repository: "192.168.1.239:8085/selfkhaoula/malek-roukaya-internapp"
-  tag: "ecdff7887023e3181f15cc189137ea9d7ca02631"
+  tag: "042436ed52117fc737cf85cb82e6f10bb3e9542f"
   pullPolicy: IfNotPresent
 
 imagePullSecrets:
