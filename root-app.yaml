@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/khaoulahamza/gitops-environments
+    repoURL: https://github.com/winddevops-org/gitops-environments
     targetRevision: main
     path: argocd-applications
 
