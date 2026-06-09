@@ -1,7 +1,7 @@
-name: malek-roukaya-internapp-front
+name: malek-roukaya-internapp-back
 replicaCount: 1
 image:
-  repository: "192.168.1.239:8085/selfkhaoula/malek-roukaya-internapp-front"
+  repository: "192.168.1.239:8085/selfkhaoula/malek-roukaya-internapp-back"
   tag: "81c3d3927cf1ca1dcb46d73e3cc49682a2a19a3a"
   pullPolicy: IfNotPresent
 imagePullSecrets:
@@ -13,7 +13,7 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: malek-roukaya-internapp-front.staging.local
+  host: malek-roukaya-internapp-back.staging.local
   path: /
   pathType: Prefix
 resources:
