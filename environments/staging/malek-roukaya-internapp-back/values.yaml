@@ -23,19 +23,28 @@ resources:
   requests:
     cpu: 250m
     memory: 256Mi
-env: []
 
+# ✅ UN SEUL bloc env
 env:
   - name: SPRING_DATASOURCE_URL
-    value: "jdbc:postgresql://postgres-service-malek-roukaya-internapp-back:5432/malek_roukaya_internapp_back_db"
+    value: "jdbc:postgresql://malek-roukaya-internapp-back-postgresql-svc:5432/malek_roukaya_internapp_back_db"
   - name: SPRING_DATASOURCE_USERNAME
-    value: "admin"
+    valueFrom:
+      secretKeyRef:
+        name: malek-roukaya-internapp-back-db-secret
+        key: POSTGRES_USER
   - name: SPRING_DATASOURCE_PASSWORD
-    value: "changeme123"
+    valueFrom:
+      secretKeyRef:
+        name: malek-roukaya-internapp-back-db-secret
+        key: POSTGRES_PASSWORD
   - name: SPRING_JPA_HIBERNATE_DDL_AUTO
     value: "update"
+
 database:
   enabled: true
   type: "postgresql"
   name: "malek_roukaya_internapp_back_db"
   storage: 1Gi
+  username: "admin"
+  password: "changeme123"
