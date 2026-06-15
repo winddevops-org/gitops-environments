@@ -1,3 +1,4 @@
+# environments/staging/malek-roukaya-internapp-back/values.yaml
 name: malek-roukaya-internapp-back
 replicaCount: 1
 image:
@@ -24,27 +25,17 @@ resources:
     cpu: 250m
     memory: 256Mi
 
-# ✅ UN SEUL bloc env
-env:
-  - name: SPRING_DATASOURCE_URL
-    value: "jdbc:postgresql://malek-roukaya-internapp-back-postgresql-svc:5432/malek_roukaya_internapp_back_db"
-  - name: SPRING_DATASOURCE_USERNAME
-    valueFrom:
-      secretKeyRef:
-        name: malek-roukaya-internapp-back-db-secret
-        key: POSTGRES_USER
-  - name: SPRING_DATASOURCE_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: malek-roukaya-internapp-back-db-secret
-        key: POSTGRES_PASSWORD
-  - name: SPRING_JPA_HIBERNATE_DDL_AUTO
-    value: "update"
+env: []
 
 database:
   enabled: true
   type: "postgresql"
   name: "malek_roukaya_internapp_back_db"
   storage: 1Gi
-  username: "admin"
-  password: "changeme123"
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
