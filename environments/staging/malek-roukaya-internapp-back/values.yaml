@@ -34,3 +34,8 @@ env:
     value: "changeme123"
   - name: SPRING_JPA_HIBERNATE_DDL_AUTO
     value: "update"
+database:
+  enabled: true
+  type: "postgresql"
+  name: "malek_roukaya_internapp_back_db"
+  storage: 1Gi
