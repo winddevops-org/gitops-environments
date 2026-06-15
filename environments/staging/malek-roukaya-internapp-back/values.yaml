@@ -3,7 +3,7 @@ name: malek-roukaya-internapp-back
 replicaCount: 1
 image:
   repository: "192.168.1.239:8085/selfkhaoula/malek-roukaya-internapp-back"
-  tag: "8ea0117dee4b0a8e6fdf8333b13f6c9d53b2480d"
+  tag: "a3ac76e2eebb22d13fa9cbc08b0cd803e28aa2ff"
   pullPolicy: IfNotPresent
 imagePullSecrets:
   - name: nexus-registry-secret
