@@ -3,7 +3,7 @@ name: malek-roukaya-internapp-back
 replicaCount: 1
 image:
   repository: "192.168.1.239:8085/selfkhaoula/malek-roukaya-internapp-back"
-  tag: "a4edc38df01ce373a6d837f4b0a1415204e73816"
+  tag: "8ea0117dee4b0a8e6fdf8333b13f6c9d53b2480d"
   pullPolicy: IfNotPresent
 imagePullSecrets:
   - name: nexus-registry-secret
@@ -26,7 +26,6 @@ resources:
     memory: 256Mi
 
 env: []
-
 database:
   enabled: true
   type: "postgresql"
