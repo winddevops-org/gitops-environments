@@ -1,0 +1,67 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service-malek-roukaya-internapp-back
+  namespace: staging-malek-roukaya-internapp-back
+spec:
+  selector:
+    app: postgres-db-malek-roukaya-internapp-back
+  ports:
+    - port: 5432
+      targetPort: 5432
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres-db-malek-roukaya-internapp-back
+  namespace: staging-malek-roukaya-internapp-back
+spec:
+  serviceName: "postgres-service-malek-roukaya-internapp-back"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-db-malek-roukaya-internapp-back
+  template:
+    metadata:
+      labels:
+        app: postgres-db-malek-roukaya-internapp-back
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: "malek_roukaya_internapp_back_db"
+            - name: POSTGRES_USER
+              value: "admin"
+            - name: POSTGRES_PASSWORD
+              value: "changeme123"
+            - name: PGDATA
+              value: "/var/lib/postgresql/data/pgdata"
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "admin"]
+            initialDelaySeconds: 10
+            periodSeconds: 5
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
