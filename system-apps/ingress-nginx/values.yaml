@@ -1,0 +1,20 @@
+controller:
+  hostNetwork: true
+  dnsPolicy: ClusterFirstWithHostNet
+  
+  service:
+    type: ClusterIP
+    ports:
+      http: 80
+      https: 443
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 90Mi
+    limits:
+      cpu: 200m
+      memory: 180Mi
+
+metrics:
+  enabled: false
