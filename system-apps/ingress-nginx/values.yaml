@@ -1,9 +1,9 @@
 controller:
-  hostNetwork: true
+  hostNetwork: true              # ← CLÉ : Bind le port 80 directement
   dnsPolicy: ClusterFirstWithHostNet
   
   service:
-    type: ClusterIP
+    type: ClusterIP              # ← Plus de NodePort !
     ports:
       http: 80
       https: 443
