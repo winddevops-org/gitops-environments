@@ -24,6 +24,7 @@ resources:
     cpu: 250m
     memory: 256Mi
 env: []
+
 database:
   enabled: true
   type: "postgresql"
@@ -36,3 +37,9 @@ database:
     requests:
       cpu: 250m
       memory: 256Mi
+  ha:
+    enabled: true
+    replicas: 2
+    proxy:
+      enabled: true
+      replicas: 2
