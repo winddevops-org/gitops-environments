@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: malek-roukaya-internapp-back-staging
+  namespace: argocd
+spec:
+  project: stagiaires
+  sources:
+    - repoURL: https://github.com/winddevops-org/devops-templates
+      targetRevision: main
+      path: helm-charts/app-generic
+      helm:
+        valueFiles:
+          - $values/environments/staging/malek-roukaya-internapp/values-back.yaml
+    - repoURL: https://github.com/winddevops-org/gitops-environments
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging-malek-roukaya-internapp
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
