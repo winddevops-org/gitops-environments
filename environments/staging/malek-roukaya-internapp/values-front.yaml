@@ -3,7 +3,7 @@ namespace: staging-malek-roukaya-internapp
 replicaCount: 1
 image:
   repository: "192.168.1.239:8085/selfkhaoula/malek-roukaya-internapp-front"
-  tag: "a3ac76e2eebb22d13fa9cbc08b0cd803e28aa2ff"
+  tag: "1442657f00328e150f1e1257cfb0843b7fa2e551"
   pullPolicy: IfNotPresent
 imagePullSecrets:
   - name: nexus-registry-secret
