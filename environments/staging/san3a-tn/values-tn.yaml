@@ -1,0 +1,45 @@
+name: san3a-tn
+namespace: staging-san3a-tn
+replicaCount: 1
+image:
+  repository: "192.168.1.239:8085/selfkhaoula/san3a-tn"
+  tag: "32e339a58d896b8c738a34a7544e4fe61bf2d1d7"
+  pullPolicy: IfNotPresent
+imagePullSecrets:
+  - name: nexus-registry-secret
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+ingress:
+  enabled: true
+  className: nginx
+  host: san3a-tn.staging.local
+  path: /
+  pathType: Prefix
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+env: []
+database:
+  enabled: false
+  type: ""
+  name: ""
+  storage: 1Gi
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  ha:
+    enabled: true
+    replicas: 2
+    proxy:
+      enabled: true
+      replicas: 2
