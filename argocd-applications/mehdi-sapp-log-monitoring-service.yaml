@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mehdi-sapp-log-monitoring-service
+  namespace: argocd
+spec:
+  project: stagiaires
+  sources:
+    - repoURL: https://github.com/winddevops-org/devops-templates
+      targetRevision: main
+      path: helm-charts/app-generic
+      helm:
+        valueFiles:
+          - $values/environments/staging/mehdi-sapp-log-monitoring-service/values.yaml
+    - repoURL: https://github.com/winddevops-org/gitops-environments
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: staging-mehdi-sapp-log-monitoring-service
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
