@@ -6,7 +6,7 @@ metadata:
 spec:
   project: stagiaires
   sources:
-    - repoURL: https://github.com/winddevops-org/devops-templates
+    - repoURL: git@github.com:winddevops-org/devops-templates.git
       targetRevision: main
       path: helm-charts/app-generic
       helm:
