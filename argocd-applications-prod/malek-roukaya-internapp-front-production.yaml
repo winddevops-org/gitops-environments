@@ -12,7 +12,7 @@ spec:
       helm:
         valueFiles:
           - $values/environments/production/malek-roukaya-internapp/values-front.yaml
-    - repoURL: https://github.com/winddevops-org/gitops-environments
+    - repoURL: git@github.com/winddevops-org/gitops-environments
       targetRevision: main
       ref: values
   destination:
