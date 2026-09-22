@@ -1,0 +1,45 @@
+name: malek-roukaya-internapp-front
+namespace: production-malek-roukaya-internapp
+replicaCount: 2
+image:
+  repository: "windazureacr.azurecr.io/malek-roukaya-internapp-front"
+  tag: "afc45d4a45b138e1588639c6d655158c8cd058d7"
+  pullPolicy: IfNotPresent
+imagePullSecrets:
+  - name: azureacr-secret
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+ingress:
+  enabled: true
+  className: nginx
+  host: malek-roukaya-internapp-front.production.local
+  path: /
+  pathType: Prefix
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+env: []
+database:
+  enabled: false
+  type: ""
+  name: ""
+  storage: 1Gi
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  ha:
+    enabled: true
+    replicas: 2
+    proxy:
+      enabled: true
+      replicas: 2
