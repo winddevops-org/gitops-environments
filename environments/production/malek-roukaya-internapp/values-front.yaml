@@ -3,7 +3,7 @@ namespace: production-malek-roukaya-internapp
 replicaCount: 2
 image:
   repository: "windazureacrch0s.azurecr.io/malek-roukaya-internapp-front"
-  tag: "b5feb0fed6fff5b4c8eace6e06121fc52a511b05"
+  tag: "7b997574a8c18e967ba45737b3b174220554e4dc"
   pullPolicy: IfNotPresent
 imagePullSecrets:
   - name: azureacr-secret
