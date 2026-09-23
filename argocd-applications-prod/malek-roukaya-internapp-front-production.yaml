@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: malek-roukaya-internapp-front-production
+  namespace: argocd
+spec:
+  project: stagiaires
+  sources:
+    - repoURL: git@github.com:winddevops-org/devops-templates.git
+      targetRevision: main
+      path: helm-charts/app-generic
+      helm:
+        valueFiles:
+          - $values/environments/production/malek-roukaya-internapp/values-front.yaml
+    - repoURL: git@github.com:winddevops-org/gitops-environments.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production-malek-roukaya-internapp
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

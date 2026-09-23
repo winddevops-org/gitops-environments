@@ -1,0 +1,52 @@
+name: malek-roukaya-internapp-back
+namespace: production-malek-roukaya-internapp
+replicaCount: 2
+image:
+  repository: "windazureacrch0s.azurecr.io/malek-roukaya-internapp-back"
+  tag: "b5feb0fed6fff5b4c8eace6e06121fc52a511b05"
+  pullPolicy: IfNotPresent
+imagePullSecrets:
+  - name: azureacr-secret
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+ingress:
+  enabled: true
+  className: nginx
+  host: malek-roukaya-internapp-back.20.240.228.74.nip.io
+  path: /
+  pathType: Prefix
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+    - hosts:
+        - malek-roukaya-internapp-back.20.240.228.74.nip.io
+      secretName: malek-roukaya-internapp-back-tls
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+env: []
+database:
+  enabled: true
+  type: "postgresql"
+  name: "malek_roukaya_internapp_db"
+  namespace: "production-malek-roukaya-internapp"
+  storage: 1Gi
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  ha:
+    enabled: true
+    replicas: 2
+    proxy:
+      enabled: true
+      replicas: 2
