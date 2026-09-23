@@ -3,8 +3,8 @@ namespace: production-devops-dashboard
 replicaCount: 1
 image:
   repository: "windazureacrch0s.azurecr.io/devops-dashboard"
-  tag: "latest"
-  pullPolicy: IfNotPresent
+  tag: "309620cac5e6cffaf3f6045fafd48af839eaeec3"  
+  pullPolicy: Always  
 imagePullSecrets:
   - name: azureacr-secret
 service:
