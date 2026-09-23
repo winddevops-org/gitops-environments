@@ -3,7 +3,7 @@ namespace: production-devops-dashboard
 replicaCount: 1
 image:
   repository: "windazureacrch0s.azurecr.io/devops-dashboard"
-  tag: "309620cac5e6cffaf3f6045fafd48af839eaeec3"
+  tag: "b73edb7ad1f28f57fbc5a1af6e5c8a1b94ed90d3"
   pullPolicy: IfNotPresent
 imagePullSecrets:
   - name: azureacr-secret
