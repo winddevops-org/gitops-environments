@@ -1,0 +1,51 @@
+name: devops-dashboard
+namespace: production-devops-dashboard
+replicaCount: 1
+image:
+  repository: "windazureacrch0s.azurecr.io/devops-dashboard"
+  tag: "309620cac5e6cffaf3f6045fafd48af839eaeec3"
+  pullPolicy: IfNotPresent
+imagePullSecrets:
+  - name: azureacr-secret
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+ingress:
+  enabled: true
+  className: nginx
+  host: devops-dashboard.production.local
+  path: /
+  pathType: Prefix
+
+persistence:
+  enabled: true
+  mountDir: /app
+  fileName: devops_dashboard.db
+  size: 500Mi
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+env: []
+database:
+  enabled: false
+  type: ""
+  name: ""
+  storage: 1Gi
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  ha:
+    enabled: true
+    replicas: 2
+    proxy:
+      enabled: true
+      replicas: 2
