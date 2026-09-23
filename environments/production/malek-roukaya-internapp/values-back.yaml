@@ -2,8 +2,8 @@ name: malek-roukaya-internapp-back
 namespace: production-malek-roukaya-internapp
 replicaCount: 2
 image:
-  repository: "windazureacr.azurecr.io/malek-roukaya-internapp-back"
-  tag: "b5feb0fed6fff5b4c8eace6e06121fc52a511b05"
+  repository: "windazureacrch0s.azurecr.io/malek-roukaya-internapp-back"
+  tag: "afc45d4a45b138e1588639c6d655158c8cd058d7"
   pullPolicy: IfNotPresent
 imagePullSecrets:
   - name: azureacr-secret
@@ -14,7 +14,7 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: malek-roukaya-internapp-back.20.240.228.74.nip.io
+  host: malek-roukaya-internapp-back.production.local
   path: /
   pathType: Prefix
 resources:
