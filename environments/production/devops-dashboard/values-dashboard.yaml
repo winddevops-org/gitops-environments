@@ -20,8 +20,8 @@ ingress:
 
 persistence:
   enabled: true
-  mountDir: /app
-  fileName: devops_dashboard.db
+  mountDir: "/app"
+  fileName: "devops_dashboard.db"
   size: 500Mi
 resources:
   limits:
