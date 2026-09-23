@@ -14,7 +14,7 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: malek-roukaya-internapp-back.production.local
+  host: malek-roukaya-internapp-back.20.240.228.74
   path: /
   pathType: Prefix
 resources:
