@@ -14,7 +14,7 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: malek-roukaya-internapp-front.20.240.228.74
+  host: malek-roukaya-internapp-front.20.240.228.74.nip.io
   path: /
   pathType: Prefix
 resources:
