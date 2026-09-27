@@ -1,9 +1,9 @@
 name: mehdi-sapp-authentification-service
-namespace: staging-mehdi-sapp-authentification-service
+namespace: staging-mehdi-sapp
 replicaCount: 1
 image:
   repository: "192.168.1.239:8085/selfkhaoula/mehdi-sapp-authentification-service"
-  tag: "acec4e3321004e363210cdf83971e77b32eaec2d"
+  tag: "cb03d5812a2a852903d975d8c5b6b7cf533bb5a2"
   pullPolicy: IfNotPresent
 imagePullSecrets:
 - name: nexus-registry-secret
@@ -25,3 +25,22 @@ resources:
     cpu: 250m
     memory: 256Mi
 env: []
+database:
+  enabled: true
+  type: "postgresql"
+  name: "mehdi_sapp_authentification_service_db"
+  namespace: "staging-mehdi-sapp-authentification-service"
+  storage: 1Gi
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  ha:
+    enabled: true
+    replicas: 2
+    proxy:
+      enabled: true
+      replicas: 2
