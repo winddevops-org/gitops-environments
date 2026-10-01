@@ -14,15 +14,22 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: malek-roukaya-internapp-back.20.240.228.74.nip.io
-  path: /
-  pathType: Prefix
+  # Même hôte que le frontend pour éviter les problèmes CORS et utiliser l'IP existante
+  host: devops-dashboard-prod.swedencentral.cloudapp.azure.com
+  # Chemin dédié pour le backend. Le regex permet de capturer ce qui suit "/api"
+  path: /internapp/api(/|$)(.*)
+  pathType: ImplementationSpecific
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+    # Réécrit l'URL pour que le conteneur reçoive la requête à la racine "/"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
   tls:
     - hosts:
-        - malek-roukaya-internapp-back.20.240.228.74.nip.io
-      secretName: malek-roukaya-internapp-back-tls
+        - devops-dashboard-prod.swedencentral.cloudapp.azure.com
+      # Nom de secret unique pour le backend
+      secretName: internapp-back-tls
 resources:
   limits:
     cpu: 500m
@@ -44,9 +51,6 @@ database:
     requests:
       cpu: 250m
       memory: 256Mi
+  # Désactivation de la HA pour garantir un déploiement stable et léger
   ha:
-    enabled: true
-    replicas: 2
-    proxy:
-      enabled: true
-      replicas: 2
+    enabled: false
