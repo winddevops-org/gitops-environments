@@ -14,16 +14,23 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: malek-roukaya-internapp-front.20.240.228.74.nip.io
-  path: /
+  # Réutilisation du DNS existant (aucune modification Azure requise)
+  host: devops-dashboard-prod.swedencentral.cloudapp.azure.com
+  # Chemin dédié pour isoler cette application
+  path: /internapp
   pathType: Prefix
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     kubernetes.io/ingress.class: nginx
+    # Indispensable : retire "/internapp" de l'URL avant de l'envoyer au pod
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    # Gestion des chemins avec capture group pour la réécriture
+    nginx.ingress.kubernetes.io/use-regex: "true"
   tls:
     - hosts:
-        - malekroukaya-prod.swedencentral.cloudapp.azure.com
-      secretName: malek-roukaya-internapp-front-tls
+        - devops-dashboard-prod.swedencentral.cloudapp.azure.com
+      # Nom de secret unique pour éviter tout conflit avec le dashboard
+      secretName: internapp-front-tls
 resources:
   limits:
     cpu: 500m
