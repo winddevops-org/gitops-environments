@@ -14,7 +14,7 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: malek-roukaya-internapp-front.20.240.228.74.nip.io
+  host: malekroukaya-prod.devops-dashboard-prod.swedencentral.cloudapp.azure.com
   path: /
   pathType: Prefix
   annotations:
