@@ -17,7 +17,7 @@ ingress:
   host: devops-dashboard-prod.swedencentral.cloudapp.azure.com
   path: /
   pathType: Prefix
-  tls:
+  certManager:
     enabled: true
     clusterIssuer: letsencrypt-prod
     secretName: devops-dashboard-tls
