@@ -14,14 +14,14 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: malekroukaya-prod.devops-dashboard-prod.swedencentral.cloudapp.azure.com
+  host: malekroukaya-prod.swedencentral.cloudapp.azure.com
   path: /
   pathType: Prefix
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
     - hosts:
-        - malek-roukaya-internapp-front.20.240.228.74.nip.io
+        - malekroukaya-prod.swedencentral.cloudapp.azure.com
       secretName: malek-roukaya-internapp-front-tls
 resources:
   limits:
