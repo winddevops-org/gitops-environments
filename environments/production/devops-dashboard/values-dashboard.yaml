@@ -1,9 +1,9 @@
 name: devops-dashboard
 namespace: production-devops-dashboard
-replicaCount: 1
+replicaCount: 2
 image:
   repository: "windazureacrch0s.azurecr.io/devops-dashboard"
-  tag: "b73edb7ad1f28f57fbc5a1af6e5c8a1b94ed90d3"
+  tag: "7ddef804ba36d41e0546092a4a8365311de74376"
   pullPolicy: Always
 imagePullSecrets:
   - name: azureacr-secret
@@ -19,7 +19,7 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: devops-dashboard-prod.swedencentral.cloudapp.azure.com
+  host: devops-dashboard.20.240.228.74.nip.io
   path: /
   pathType: Prefix
   annotations:
