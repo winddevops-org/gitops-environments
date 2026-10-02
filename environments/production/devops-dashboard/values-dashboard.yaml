@@ -1,9 +1,9 @@
 name: devops-dashboard
 namespace: production-devops-dashboard
-replicaCount: 2
+replicaCount: 1
 image:
   repository: "windazureacrch0s.azurecr.io/devops-dashboard"
-  tag: "7ddef804ba36d41e0546092a4a8365311de74376"
+  tag: "b73edb7ad1f28f57fbc5a1af6e5c8a1b94ed90d3"
   pullPolicy: Always
 imagePullSecrets:
   - name: azureacr-secret
@@ -19,7 +19,7 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: devops-dashboard.20.240.228.74.nip.io
+  host: devops-dashboard-prod.swedencentral.cloudapp.azure.com
   path: /
   pathType: Prefix
   annotations:
@@ -34,6 +34,7 @@ persistence:
   mountDir: "/data"
   fileName: "devops_dashboard.db"
   size: 500Mi
+  mountWholeDir: true   # monte le dossier /data entier (SQLite a besoin d'ecrire son journal)
 resources:
   limits:
     cpu: 500m
