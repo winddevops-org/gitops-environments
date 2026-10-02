@@ -1,39 +1,36 @@
-name: devops-dashboard
-namespace: production-devops-dashboard
-replicaCount: 1
+name: malek-roukaya-internapp-front
+namespace: production-malek-roukaya-internapp
+replicaCount: 2
 image:
-  repository: "windazureacrch0s.azurecr.io/devops-dashboard"
-  tag: "b73edb7ad1f28f57fbc5a1af6e5c8a1b94ed90d3"
-  pullPolicy: Always
+  repository: "windazureacrch0s.azurecr.io/malek-roukaya-internapp-front"
+  tag: "7b997574a8c18e967ba45737b3b174220554e4dc"
+  pullPolicy: IfNotPresent
 imagePullSecrets:
   - name: azureacr-secret
-
-serviceAccount:
-  create: false
-  name: devops-dashboard-sa
-
 service:
   type: ClusterIP
   port: 80
-  targetPort: 8000
+  targetPort: 80
 ingress:
   enabled: true
   className: nginx
+  # Réutilisation du DNS existant qui pointe déjà vers votre LoadBalancer (20.240.228.74)
   host: devops-dashboard-prod.swedencentral.cloudapp.azure.com
-  path: /
+  # Chemin dédié pour isoler cette application du dashboard principal
+  path: /internapp
   pathType: Prefix
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: nginx
+    # Indispensable : retire "/internapp" de l'URL avant de l'envoyer au conteneur
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    # Gestion des chemins avec capture group pour une réécriture NGINX fiable
+    nginx.ingress.kubernetes.io/use-regex: "true"
   tls:
     - hosts:
         - devops-dashboard-prod.swedencentral.cloudapp.azure.com
-      secretName: devops-dashboard-tls
-
-persistence:
-  enabled: true
-  mountDir: "/data"
-  fileName: "devops_dashboard.db"
-  size: 500Mi
+      # Nom de secret unique pour éviter tout conflit avec le certificat du dashboard
+      secretName: internapp-front-tls
 resources:
   limits:
     cpu: 500m
@@ -44,19 +41,3 @@ resources:
 env: []
 database:
   enabled: false
-  type: ""
-  name: ""
-  storage: 1Gi
-  resources:
-    limits:
-      cpu: 500m
-      memory: 512Mi
-    requests:
-      cpu: 250m
-      memory: 256Mi
-  ha:
-    enabled: true
-    replicas: 2
-    proxy:
-      enabled: true
-      replicas: 2
