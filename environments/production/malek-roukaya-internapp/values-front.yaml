@@ -1,36 +1,39 @@
-name: malek-roukaya-internapp-front
-namespace: production-malek-roukaya-internapp
-replicaCount: 2
+name: devops-dashboard
+namespace: production-devops-dashboard
+replicaCount: 1
 image:
-  repository: "windazureacrch0s.azurecr.io/malek-roukaya-internapp-front"
-  tag: "7b997574a8c18e967ba45737b3b174220554e4dc"
-  pullPolicy: IfNotPresent
+  repository: "windazureacrch0s.azurecr.io/devops-dashboard"
+  tag: "b73edb7ad1f28f57fbc5a1af6e5c8a1b94ed90d3"
+  pullPolicy: Always
 imagePullSecrets:
   - name: azureacr-secret
+
+serviceAccount:
+  create: false
+  name: devops-dashboard-sa
+
 service:
   type: ClusterIP
   port: 80
-  targetPort: 80
+  targetPort: 8000
 ingress:
   enabled: true
   className: nginx
-  # Réutilisation du DNS existant (aucune modification Azure requise)
   host: devops-dashboard-prod.swedencentral.cloudapp.azure.com
-  # Chemin dédié pour isoler cette application
-  path: /internapp
+  path: /
   pathType: Prefix
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    kubernetes.io/ingress.class: nginx
-    # Indispensable : retire "/internapp" de l'URL avant de l'envoyer au pod
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-    # Gestion des chemins avec capture group pour la réécriture
-    nginx.ingress.kubernetes.io/use-regex: "true"
   tls:
     - hosts:
         - devops-dashboard-prod.swedencentral.cloudapp.azure.com
-      # Nom de secret unique pour éviter tout conflit avec le dashboard
-      secretName: internapp-front-tls
+      secretName: devops-dashboard-tls
+
+persistence:
+  enabled: true
+  mountDir: "/data"
+  fileName: "devops_dashboard.db"
+  size: 500Mi
 resources:
   limits:
     cpu: 500m
@@ -41,3 +44,19 @@ resources:
 env: []
 database:
   enabled: false
+  type: ""
+  name: ""
+  storage: 1Gi
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  ha:
+    enabled: true
+    replicas: 2
+    proxy:
+      enabled: true
+      replicas: 2
