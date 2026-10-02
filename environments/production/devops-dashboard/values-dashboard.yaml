@@ -14,7 +14,7 @@ service:
 ingress:
   enabled: true
   className: nginx
-  host: devops-dashboard-prod.swedencentral.cloudapp.azure.com/dashboard
+  host: devops-dashboard-prod.swedencentral.cloudapp.azure.com
   path: /
   pathType: Prefix
   annotations:
