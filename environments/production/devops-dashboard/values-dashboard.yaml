@@ -41,7 +41,63 @@ resources:
   requests:
     cpu: 250m
     memory: 256Mi
-env: []
+
+# --- CORRECTION CRUCIALE : Forcer l'utilisation du volume persistant ---
+env:
+  - name: DATABASE_URL
+    value: "sqlite:////data/devops_dashboard.db"
+  - name: ARGOCD_STAGING_URL
+    valueFrom:
+      secretKeyRef:
+        name: devops-dashboard-secrets
+        key: ARGOCD_STAGING_URL
+  - name: ARGOCD_PROD_URL
+    valueFrom:
+      secretKeyRef:
+        name: devops-dashboard-secrets
+        key: ARGOCD_PROD_URL
+  - name: ARGOCD_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: devops-dashboard-secrets
+        key: ARGOCD_USERNAME
+  - name: ARGOCD_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: devops-dashboard-secrets
+        key: ARGOCD_PASSWORD
+  - name: GITHUB_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: devops-dashboard-secrets
+        key: GITHUB_TOKEN
+  - name: GITHUB_ORG
+    valueFrom:
+      secretKeyRef:
+        name: devops-dashboard-secrets
+        key: GITHUB_ORG
+  - name: AZURE_SUBSCRIPTION_ID
+    valueFrom:
+      secretKeyRef:
+        name: devops-dashboard-secrets
+        key: AZURE_SUBSCRIPTION_ID
+  - name: PRODUCTION_CLUSTER_NAME
+    valueFrom:
+      secretKeyRef:
+        name: devops-dashboard-secrets
+        key: PRODUCTION_CLUSTER_NAME
+  - name: STAGING_CLUSTER_NAME
+    valueFrom:
+      secretKeyRef:
+        name: devops-dashboard-secrets
+        key: STAGING_CLUSTER_NAME
+  - name: CLUSTER_NAME
+    valueFrom:
+      secretKeyRef:
+        name: devops-dashboard-secrets
+        key: CLUSTER_NAME
+# -----------------------------------------------------------------------
+
 database:
   enabled: false
   type: ""
