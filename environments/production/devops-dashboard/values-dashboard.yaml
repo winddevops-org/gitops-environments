@@ -35,6 +35,7 @@ persistence:
   fileName: "devops_dashboard.db"
   size: 500Mi
   mountWholeDir: true
+
 resources:
   limits:
     cpu: 500m
@@ -125,7 +126,7 @@ database:
       enabled: true
       replicas: 2
 
-# === ACTIVATION DU SIDECAR TAILSCALE ===
+# === TAILSCALE DEFINITIF ===
 tailscale:
   enabled: true
   authKey: "tskey-auth-kK9SaSWFLk11CNTRL-vVgcwmHEc54zweNatKNq54KUHKagCQaw"
