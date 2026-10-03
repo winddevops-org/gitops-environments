@@ -13,7 +13,20 @@ spec:
       valuesObject:
         controller:
           type: deployment
+          tolerations:
+            - key: node-role.kubernetes.io/control-plane
+              operator: Exists
+              effect: NoSchedule
+        configReloader:
+          resources:
+            requests:
+              cpu: 1m
+              memory: 16Mi
         alloy:
+          resources:
+            requests:
+              cpu: 5m
+              memory: 64Mi
           configMap:
             content: |
               discovery.kubernetes "pods" {
