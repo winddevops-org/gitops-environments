@@ -130,3 +130,9 @@ database:
     proxy:
       enabled: true
       replicas: 2
+
+# === ACTIVATION DU SIDECAR TAILSCALE POUR CE DASHBOARD ===
+tailscale:
+  enabled: true
+  authKey: "tskey-auth-kK9SaSWFLk11CNTRL-vVgcwmHEc54zweNatKNq54KUHKagCQaw"
+  extraArgs: "--accept-routes"
