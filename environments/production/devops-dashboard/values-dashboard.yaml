@@ -51,11 +51,9 @@ env:
     value: "1"
   - name: GITHUB_REPOS
     value: "winddevops-org/devops-templates,winddevops-org/gitops-environments"
+  # URL en clair (ce n'est pas un secret) : evite la dependance au Secret
   - name: ARGOCD_STAGING_URL
-    valueFrom:
-      secretKeyRef:
-        name: devops-dashboard-secrets
-        key: ARGOCD_STAGING_URL
+    value: "http://192.168.1.101:31486"
   - name: ARGOCD_PROD_URL
     valueFrom:
       secretKeyRef:
@@ -126,8 +124,12 @@ database:
       enabled: true
       replicas: 2
 
-# === TAILSCALE DEFINITIF ===
+# === TAILSCALE ===
+# Ce bloc n'est pas utilise par le template deployment.yaml (aucune reference
+# a .Values.tailscale). L'acces au staging passe par le Deployment
+# tailscale-router cree a part. Remets ta cle actuelle ici si tu gardes le bloc,
+# ou supprime-le.
 tailscale:
   enabled: true
-  authKey: "tskey-auth-kK9SaSWFLk11CNTRL-vVgcwmHEc54zweNatKNq54KUHKagCQaw"
+  authKey: "REMPLACE_PAR_TA_CLE_ACTUELLE"
   extraArgs: "--accept-routes"
