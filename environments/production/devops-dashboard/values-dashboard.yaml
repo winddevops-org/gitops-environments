@@ -1,6 +1,6 @@
 name: devops-dashboard
 namespace: production-devops-dashboard
-replicaCount: 2
+replicaCount: 1
 
 # Evite le Multi-Attach du disque RWO lors d'un deploiement.
 # Pris en compte uniquement si le chart generique contient le bloc optionnel
@@ -10,7 +10,7 @@ strategy:
 
 image:
   repository: "windazureacrch0s.azurecr.io/devops-dashboard"
-  tag: "e5580a7eae1d04701a8a43a07b0adc388cbffe45"
+  tag: "1de1a7779f75d5e8afd01a241851fce125367220"
   pullPolicy: Always
 imagePullSecrets:
   - name: azureacr-secret
