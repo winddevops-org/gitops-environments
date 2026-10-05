@@ -1,6 +1,13 @@
 name: devops-dashboard
 namespace: production-devops-dashboard
-replicaCount: 2
+replicaCount: 1
+
+# Evite le Multi-Attach du disque RWO lors d'un deploiement.
+# Pris en compte uniquement si le chart generique contient le bloc optionnel
+# {{- with .Values.strategy }} ... {{- end }} ; sinon ignore sans effet.
+strategy:
+  type: Recreate
+
 image:
   repository: "windazureacrch0s.azurecr.io/devops-dashboard"
   tag: "1de1a7779f75d5e8afd01a241851fce125367220"
@@ -104,6 +111,12 @@ env:
       secretKeyRef:
         name: devops-dashboard-secrets
         key: SECRET_KEY
+  # Kubeconfig du cluster staging (on-premise), lu par kubernetes_service.py
+  - name: STAGING_KUBECONFIG
+    valueFrom:
+      secretKeyRef:
+        name: devops-dashboard-secrets
+        key: STAGING_KUBECONFIG
 
 database:
   enabled: false
