@@ -117,6 +117,9 @@ env:
       secretKeyRef:
         name: devops-dashboard-secrets
         key: STAGING_KUBECONFIG
+  # Nom exact du contexte dans le kubeconfig staging (correspond à ce qui est dans le fichier)
+  - name: K8S_CONTEXT
+    value: "kubernetes-admin@kubernetes"
 
 database:
   enabled: false
