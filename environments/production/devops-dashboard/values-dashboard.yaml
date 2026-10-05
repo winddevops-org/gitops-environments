@@ -8,7 +8,7 @@ strategy:
 
 image:
   repository: "windazureacrch0s.azurecr.io/devops-dashboard"
-  tag: "fix-cache-v1" # ⚠️ IMPORTANT : Change ce tag après le docker build
+  tag: "8040614d110d38269a5f2fa5e5f24fb7b0c8f360"
   pullPolicy: Always
 imagePullSecrets:
   - name: azureacr-secret
