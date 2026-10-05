@@ -3,14 +3,12 @@ namespace: production-devops-dashboard
 replicaCount: 1
 
 # Evite le Multi-Attach du disque RWO lors d'un deploiement.
-# Pris en compte uniquement si le chart generique contient le bloc optionnel
-# {{- with .Values.strategy }} ... {{- end }} ; sinon ignore sans effet.
 strategy:
   type: Recreate
 
 image:
   repository: "windazureacrch0s.azurecr.io/devops-dashboard"
-  tag: "1de1a7779f75d5e8afd01a241851fce125367220"
+  tag: "fix-cache-v1" # ⚠️ IMPORTANT : Change ce tag après le docker build
   pullPolicy: Always
 imagePullSecrets:
   - name: azureacr-secret
@@ -23,6 +21,7 @@ service:
   type: ClusterIP
   port: 80
   targetPort: 8000
+
 ingress:
   enabled: true
   className: nginx
@@ -58,7 +57,6 @@ env:
     value: "1"
   - name: GITHUB_REPOS
     value: "winddevops-org/devops-templates,winddevops-org/gitops-environments"
-  # URL en clair (ce n'est pas un secret) : evite la dependance au Secret
   - name: ARGOCD_STAGING_URL
     value: "http://192.168.1.101:31486"
   - name: ARGOCD_PROD_URL
@@ -111,13 +109,12 @@ env:
       secretKeyRef:
         name: devops-dashboard-secrets
         key: SECRET_KEY
-  # Kubeconfig du cluster staging (on-premise), lu par kubernetes_service.py
   - name: STAGING_KUBECONFIG
     valueFrom:
       secretKeyRef:
         name: devops-dashboard-secrets
         key: STAGING_KUBECONFIG
-  # Nom exact du contexte dans le kubeconfig staging (correspond à ce qui est dans le fichier)
+  # ✅ AJOUT CRUCIAL : Nom exact du contexte dans le kubeconfig staging
   - name: K8S_CONTEXT
     value: "kubernetes-admin@kubernetes"
 
@@ -140,11 +137,6 @@ database:
       enabled: true
       replicas: 2
 
-# === TAILSCALE ===
-# Ce bloc n'est pas utilise par le template deployment.yaml (aucune reference
-# a .Values.tailscale). L'acces au staging passe par le Deployment
-# tailscale-router cree a part. Remets ta cle actuelle ici si tu gardes le bloc,
-# ou supprime-le.
 tailscale:
   enabled: true
   authKey: "REMPLACE_PAR_TA_CLE_ACTUELLE"
